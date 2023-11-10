@@ -1,46 +1,38 @@
-// Include important C++ libraries here
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include <sstream>
 #include <vector>
 
-// Make code easier to type with "using namespace"
 using namespace sf;
 using namespace std;
 
 int main()
 {
-    // Create a video mode object
 	VideoMode vm(1920, 1080);
-	// Create and open a window for the game
 	RenderWindow window(vm, "Chaos Game", Style::Default);
 
     vector<Vector2f> vertices;
     vector<Vector2f> points;
  
-sf::Font font;
+        sf::Font font;
         if (!font.loadFromFile("Arial.ttf"))
         {   
         cerr << "Error" << endl;
         return -1;
         }
-         
         Text instructionText;
         instructionText.setFont(font);
         instructionText.setCharacterSize(20);
         instructionText.setFillColor(Color::White);
-        instructionText.setString("Click on any three points to create the vertices for the triangle.");
-   
+        instructionText.setString("                                                                                                                 Click on any three points to create the vertices for the triangle.");
    
 
 	while (window.isOpen())
 	{
-        /*
-		****************************************
-		Handle the players input
-		****************************************
-		*/
+      
+        
+        
         Event event;
 		while (window.pollEvent(event))
 		{
@@ -65,6 +57,8 @@ sf::Font font;
                     {
                         ///fourth click
                         ///push back to points vector
+                       points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
+
                     }
                 }
             }
@@ -73,26 +67,36 @@ sf::Font font;
 		{
 			window.close();
 		}
-        /*
-		****************************************
-		Update
-		****************************************
-		*/
 
         if(points.size() > 0)
         {
-            ///generate more point(s)
-            ///select random vertex
-            ///calculate midpoint between random vertex and the last point in the vector
-            ///push back the newly generated coord.
-        }
+     
+            Vector2f lastPoint = points.back();
+            Vector2f randomVertex = vertices[rand() % vertices.size()];
+            Vector2f midpoint = (lastPoint + randomVertex) / 2.0f;
+            points.push_back(midpoint);
 
-        /*
-		****************************************
-		Draw
-		****************************************
-		*/
+            Vector2f lastPoint1 = points.back();
+            Vector2f randomVertex1 = vertices[rand() % vertices.size()];
+            Vector2f midpoint1 = (lastPoint1 + randomVertex1) / 2.0f;
+            points.push_back(midpoint1);
+
+            Vector2f lastPoint2 = points.back();
+            Vector2f randomVertex2 = vertices[rand() % vertices.size()];
+            Vector2f midpoint2 = (lastPoint2 + randomVertex2) / 2.0f;
+            points.push_back(midpoint2);
+
+        
+        }
+        
         window.clear();
+        for(int i = 0; i < points.size(); i++)
+        {
+            RectangleShape rect(Vector2f(2.5,2.5));
+            rect.setPosition(Vector2f(points[i].x, points[i].y));
+            rect.setFillColor(Color::White);
+            window.draw(rect);
+        }
         
         for(int i = 0; i < vertices.size(); i++)
         {
@@ -101,7 +105,8 @@ sf::Font font;
             rect.setFillColor(Color::Blue);
             window.draw(rect);
         }
-	window.draw(instructionText);
+
+        window.draw(instructionText);
         window.display();
     }
 }
