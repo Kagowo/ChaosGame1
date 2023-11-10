@@ -19,13 +19,7 @@ int main()
     vector<Vector2f> vertices;
     vector<Vector2f> points;
  
-
-   
-   
-
-	while (window.isOpen())
-	{
-        sf::Font font;
+sf::Font font;
         if (!font.loadFromFile("Arial.ttf"))
         {   
         cerr << "Error" << endl;
@@ -37,7 +31,11 @@ int main()
         instructionText.setCharacterSize(20);
         instructionText.setFillColor(Color::White);
         instructionText.setString("Click on any three points to create the vertices for the triangle.");
-        window.draw(instructionText);
+   
+   
+
+	while (window.isOpen())
+	{
         /*
 		****************************************
 		Handle the players input
@@ -103,6 +101,7 @@ int main()
             rect.setFillColor(Color::Blue);
             window.draw(rect);
         }
+	window.draw(instructionText);
         window.display();
     }
 }
