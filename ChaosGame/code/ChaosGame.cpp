@@ -13,41 +13,45 @@ int main()
         sf::Font font;
         if (!font.loadFromFile("Arial.ttf"))
         {   
-        cerr << "Error" << endl;
-        return -1;
+        	cerr << "Error" << endl;
+        	return -1;
         }
-	    //setting the text
+	
+	//setting the text
         Text instructionText;
         instructionText.setFont(font);
         instructionText.setCharacterSize(20);
         instructionText.setFillColor(Color::White);
+	
         int verts;
         cout << "Choose amount of vertices 3-5" << endl;
         cin >> verts;
+	
         while(verts != 3 && verts != 4 && verts != 5)
         {
             cout << "Error: Choose amount of vertices 3-5" << endl;
             cin >> verts;
         }
+	
         if(verts == 3)
         {
-        instructionText.setString("                                                                                                                 Click on any three points to create the vertices for the triangle.");
+        	instructionText.setString("                                                                                                                 Click on any three points to create the vertices for the triangle.");
         }
         else if(verts == 4)
         {
-        instructionText.setString("                                                                                                              Click on any four points to create the vertices for the square/rectangle");
+        	instructionText.setString("                                                                                                              Click on any four points to create the vertices for the square/rectangle");
         }
         else if(verts == 5)
         {
-        instructionText.setString("                                                                                                                 Click on any five points to create the vertices for the pentagon");
+        	instructionText.setString("                                                                                                                 Click on any five points to create the vertices for the pentagon");
         }
 
 
 	VideoMode vm(1920, 1080);
 	RenderWindow window(vm, "Chaos Game", Style::Default);
 
-    vector<Vector2f> vertices;
-    vector<Vector2f> points;
+    	vector<Vector2f> vertices;
+    	vector<Vector2f> points;
 
 
 
@@ -102,13 +106,13 @@ int main()
      	        //current point
                 Vector2f lastPoint = points.back();
 
-	            //random vertex
+	        //random vertex
                 Vector2f randomVertex = vertices[rand() % vertices.size()];
 
-	            //calculates midpoint
+	        //calculates midpoint
                 Vector2f midpoint = (lastPoint + randomVertex) / 2.0f;
 
-	            //pushes new point back into vector
+	        //pushes new point back into vector
                 points.push_back(midpoint);
                 }
             }
@@ -121,16 +125,21 @@ int main()
                 for(int x = 0; x < 50; x++)
                 {
                     Vector2f lastPoint = points.back();
+			
                     int randVert;
                     int prevVert;
+			
                     randVert = rand() % verts;
-                    while(randVert == prevVert + 2 || randVert == prevVert - 2)
-                    {
-                        randVert = rand() % verts;
-                        Vector2f randomVertex = vertices[randVert];
-                    }
-                    Vector2f randomVertex = vertices[randVert];
-                    Vector2f midpoint = (lastPoint + randomVertex) / 2.0f;
+			
+                    	while(randVert == prevVert + 2 || randVert == prevVert - 2)
+                    	{
+                        	randVert = rand() % verts;
+                        	Vector2f randomVertex = vertices[randVert];
+                   	}
+			
+                    	Vector2f randomVertex = vertices[randVert];
+                    	Vector2f midpoint = (lastPoint + randomVertex) / 2.0f;
+			
                     prevVert = randVert;
                     points.push_back(midpoint);
                 }
@@ -147,14 +156,18 @@ int main()
                     Vector2f lastPoint = points.back();
                     int randVert;
                     int prevVert;
-                    randVert = rand() % verts;
-                    while(randVert == prevVert)
-                    {
-                        randVert = rand() % verts;
-                        Vector2f randomVertex = vertices[randVert];
-                    }
-                    Vector2f randomVertex = vertices[randVert];
-                    Vector2f midpoint = (lastPoint + randomVertex) / 2.0f;
+			
+                    	randVert = rand() % verts;
+			
+                   	while(randVert == prevVert)
+                   	{
+                        	randVert = rand() % verts;
+                        	Vector2f randomVertex = vertices[randVert];
+                    	}
+			
+                   	 Vector2f randomVertex = vertices[randVert];
+                   	 Vector2f midpoint = (lastPoint + randomVertex) / 2.0f;
+			
                     prevVert = randVert;
                     points.push_back(midpoint);
                 }
